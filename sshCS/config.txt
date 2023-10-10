@@ -1,0 +1,26 @@
+#configure mode ==> configure terminal
+    Configure Hostname ==> hostname example
+    Configure domain name ==> ip domain-name example.com
+    Create username & password ==> username example privilege 15 secret example
+    Make password for configure mode ==> enable secret example
+    Enable aaab model (Authentication - prove identity, Authorization - give permission, Accounting - log an audit trail) ==> aaa new-model
+    Create rsa keys for ssh(2048 size for ssh v2 & less likely to be cracked) ==> crypto key generate rsa\n 2048
+    
+    //SSH good practices
+    Set timeout(time in sec to exit when inactive) ==> ip ssh time-out 30
+    Set retries(Amount of retries of password until the connection closes) ==> ip ssh authentication-retries 2
+    Restrict ssh version 2 ==> ip ssh version 2
+    Set virtual lines ==> line vty 0 15
+        #Line configuration mode
+            Restrict access to ssh connections ==> transport input ssh
+    Create/Configure management VLAN ==> vlan 100
+        #Vlan configure mode
+        Assign name ==> name management
+    Create/config interface vlan to assign IP for connectivity ==> interface vlan 100
+        #Interface configure mode
+            Assign IP to vlan interface ==> ip address 192.168.1.10 255.255.255.0
+    Configure management port ==> interface fa0/1
+        #Interface configure mode
+            Change port to access mode ==> switchport mode access
+            Assign management vlan to the port ==> switchport access vlan 100
+            Make sure port isn't in shut mode ==> no shut
